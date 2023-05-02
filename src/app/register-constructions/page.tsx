@@ -1,6 +1,9 @@
 'use client';
 import Constructions from '@/class/Constructions';
-import BasicAlerts from '@/component/Alert';
+import BasicAlerts from '@/components/Alert';
+import Container from '@/components/Container';
+import Header from '@/components/Header';
+import MyMenu from '@/components/MyMenu';
 import { TextField, Button } from '@mui/material';
 import { useState } from 'react';
 
@@ -23,15 +26,20 @@ export default function RegisterConstructions() {
 
     return (
         <>
-            { alertMessage.message && (
-                <BasicAlerts error={alertMessage.error} message={alertMessage.message} />
-            )}
-            <h1> Register Constructions </h1>
-            <form onSubmit={createConstructions}>
-                <TextField id="standard-basic" label="Nome" variant="standard" onChange={() => {setName(event.target.value)}} />
-                <TextField id="standard-basic" type="number" label="Valor do Serviço" variant="standard" onChange={()=> {setServiceValue(event.target.value)}} />
-                <Button className='bg-[#1976d2]' type="submit" variant="contained"> Cadastrar </Button>
-            </form>
+            <MyMenu/>
+            <Header description={"Cadastro de Construção"} route={'/register-collaborator'}/>
+            <Container>
+                { alertMessage.message && (
+                    <BasicAlerts error={alertMessage.error} message={alertMessage.message} />
+                )}
+                <form onSubmit={createConstructions}>
+                    <div className='mb-4'>
+                        <TextField className='w-full' id="standard-basic" label="Nome" variant="standard" onChange={() => {setName(event.target.value)}} />
+                        <TextField className='w-full' id="standard-basic" type="number" label="Valor do Serviço" variant="standard" onChange={()=> {setServiceValue(event.target.value)}} />
+                    </div>
+                    <Button className='button' type="submit" variant="contained"> Cadastrar </Button>
+                </form>
+            </Container>
         </>
     );
 }
