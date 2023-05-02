@@ -1,12 +1,17 @@
-import Link from "next/link";
+"use client"
+import CardCollaborator from "@/components/CardCollaborator";
+import Container from "@/components/Container";
+import Header from "@/components/Header";
+import MyMenu from "@/components/MyMenu";
 
 export default function Collaborator() {
   return (
-    <>
-        <h1> Maintenance Collaborator </h1>
-        <Link href="/register-collaborator"> 
-            <button className="border-solid border-2 border-sky-500"> Cadastrar </button>
-        </Link>
+    <>  
+        <MyMenu/>
+        <Header description={"Funcionários"} route={'/register-collaborator'} useButton={true}/>
+        <Container>
+            <CardCollaborator name='Breno' description='Pedreirão Marrento'/>
+        </Container>
     </>
   )
 }
