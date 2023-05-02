@@ -2,8 +2,8 @@ import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
 
 type dataAlert = {
-    message : string
-    error : boolean
+    message: string
+    error: boolean
 }
 
 export default function BasicAlerts({error, message}: dataAlert) {
