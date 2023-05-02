@@ -1,12 +1,14 @@
-import Link from "next/link";
+"use client"
+import CardConstruction from "@/components/CardConstruction";
+import Header from "@/components/Header";
+import MyMenu from "@/components/MyMenu";
 
 export default function Constructions() {
-  return (
-    <>
-        <h1> Maintenance Constructions </h1>
-        <Link href="/register-constructions"> 
-            <button className="border-solid border-2 border-sky-500"> Cadastrar </button>
-        </Link>
-    </>
-  )
+    return (
+        <>
+            <MyMenu/>
+            <Header description={"Construções"} route={'/register-constructions'} useButton={true}/>
+            <CardConstruction description="Surio"/>
+        </>
+    )
 }
