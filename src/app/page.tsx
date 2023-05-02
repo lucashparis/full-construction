@@ -1,20 +1,19 @@
-import Link from "next/link";
+'use client';
 
-export default function Home() {
+import Container from '@/components/Container';
+import Header from '@/components/Header';
+import MyMenu from '@/components/MyMenu';
+
+export default function Example() {
     return (
         <>
-            <h1> FullConstructor </h1>
-            <ul>
-                <li>
-                    <Link href="/"> Home</Link>
-                </li>
-                <li>
-                    <Link href="/collaborator"> Collaborator </Link>
-                </li>
-                <li>
-                    <Link href="/constructions"> Constructions </Link>
-                </li>
-            </ul>
+            <div className="min-h-full">
+                <MyMenu/>
+                <Header description={"Dashboard"}/>
+                <Container>
+                    
+                </Container>
+            </div>
         </>
     )
 }
