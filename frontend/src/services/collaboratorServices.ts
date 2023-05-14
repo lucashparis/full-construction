@@ -8,3 +8,12 @@ export const getCollaboratorService = async () => {
 		throw error;
     }
 };
+
+export const createCollaboratorService = async (collaborator:object) => {
+    try {
+		const response = await api.post('/api/create-collaborator', collaborator);
+		return response.data;
+    } catch (error) {
+		throw error;
+    }
+};
