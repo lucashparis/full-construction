@@ -19,7 +19,7 @@ export default function Collaborator() {
     }
 
     const listCollaborators = collaborators.map((el) => {
-        return <li key={el.id} className="list-none"><CardCollaborator name={el.name} description={el.daily} img={el.img}/></li>;
+        return <li key={el.id} className="list-none"><CardCollaborator id={el.id} name={el.name} description={el.daily} img={el.img}/></li>;
     });
 
     return (
