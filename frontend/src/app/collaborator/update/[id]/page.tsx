@@ -5,9 +5,9 @@ import BasicAlerts from '@/components/Alert';
 import Container from '@/components/Container';
 import Header from '@/components/Header';
 import MyMenu from '@/components/MyMenu';
-import { TextField, Button } from '@mui/material';
-import Router from 'next/router';
+import { TextField, Button, FormControlLabel, Switch } from '@mui/material';
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 type CollaboratorProps = {
     params: {
@@ -16,27 +16,35 @@ type CollaboratorProps = {
 }
 
 export default function UpdateCollaborator({params}:CollaboratorProps) {
+    const router = useRouter();
 
     const [name, setName] = useState('');
     const [daily, setDaily] = useState(0);
     const [img, setImg] = useState('https://cdn-icons-png.flaticon.com/512/3334/3334385.png');
     const [alertMessage, setAlertMessage] = useState({error: false, message: ''});
+    const [status, setStatus] = useState(true);
 
     useEffect(() => {
         getCollaboratorByID(Number(params.id));
     }, []);
     
     const getCollaboratorByID = async (id:number) => {
-        const collaborator = await getCollaboratorByIDAction(id);
-        setName(collaborator.name);
-        setDaily(collaborator.daily);
+        try {
+            const collaborator = await getCollaboratorByIDAction(id);
+            setName(collaborator.name);
+            setDaily(collaborator.daily);
+            setStatus(collaborator.status);
+        } catch (error:any) {
+            router.push('/404');
+        }
+
     }
 
     const updateCollaborator = (event:any) => {
         event.preventDefault();
 
         try {
-            const collaborator = new Collaborator(name, daily, img, params.id);
+            const collaborator = new Collaborator(name, daily, img, status, params.id);
             updateCollaboratorAction(collaborator);
         } catch (error) {
             setAlertMessage({error: true, message: String(error)});
@@ -52,12 +60,26 @@ export default function UpdateCollaborator({params}:CollaboratorProps) {
                     <Container>
                         { alertMessage.message && (
                             <BasicAlerts error={alertMessage.error} message={alertMessage.message} />
-                            )}
+                        )}
                         <form onSubmit={updateCollaborator}>
                             <div className='mb-4'>
-                                <TextField className='w-full' id="standard-basic" label="Nome" variant="standard" onChange={() => {setName(event.target.value)}} defaultValue={name} />
-                                <TextField className='w-full' id="standard-basic" type="number" label="Diária" variant="standard" onChange={()=> {setDaily(Number(event.target.value))}} defaultValue={daily} />
+                                <TextField className='w-full' id="standard-basic" label="Nome" variant="standard" onChange={(e) => {setName(e.target.value)}} defaultValue={name} />
+                                <TextField className='w-full' id="standard-basic" type="number" label="Diária" variant="standard" onChange={(e)=> {setDaily(Number(e.target.value))}} defaultValue={daily} />
                             </div>
+                            <FormControlLabel
+                                sx={{
+                                    display: 'block',
+                                }}
+                                control={
+                                    <Switch
+                                        checked={status}
+                                        onChange={() => setStatus(!status)}
+                                        name="Status"
+                                        color="primary"
+                                    />
+                                }
+                                label="Status"
+                            />
                             <Button className='button' type="submit" variant="contained"> Editar </Button>
                         </form>
                     </Container>
