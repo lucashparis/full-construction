@@ -13,6 +13,7 @@ model Collaborator {
     name   String  @db.VarChar(50)
     daily  Int     
     img  String    @db.VarChar(255)
+    status  Boolean
     createdAt  DateTime   @default(now())
     updatedAt  DateTime   @default(now())
     @@map("collaborators")
